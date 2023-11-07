@@ -13,7 +13,39 @@ const latLng2 =  NLatLng(37.6290734, 127.0826410);
 const latLng3 =  NLatLng(37.484147, 127.034631);
 
 
+/// 카메라를 업데이트시킬 수 있어요
+Future<bool> updateCamera(NCameraUpdate cameraUpdate) {
+  // TODO: implement updateCamera
+  throw UnimplementedError();
+}
+
+/// 카메라가 애니메이션과 함께 이동할 때, 이동 도중 애니메이션을 멈출 수 있어요
+Future<void> cancelTransitions({NCameraUpdateReason reason = NCameraUpdateReason.developer}) {
+  // TODO: implement cancelTransitions
+  throw UnimplementedError();
+}
+
+/// 카메라 포지션(정보)를 가져올 수 있어요.
+Future<NCameraPosition> getCameraPosition() {
+  // TODO: implement getCameraPosition
+  throw UnimplementedError();
+}
+
+/// 지금 카메라로 보고 있는 컨텐츠 영역을 가져올 수 있어요.
+/// withPadding이 true면, NaverMapViewOptions.contentPadding이 적용된 영역만 가져올 수 있어요.
+/// getContentBounds와 getContentRegion은 반환 타입만 달라요.
+Future<NLatLngBounds> getContentBounds({bool withPadding = false}) {
+  // TODO: implement getContentBounds
+  throw UnimplementedError();
+}
+Future<List<NLatLng>> getContentRegion({bool withPadding = false}) {
+  // TODO: implement getContentRegion
+  throw UnimplementedError();
+}
+
+
 final marker=NMarker(id: "test", position: latLng1);
+
 final marker1 = NMarker(id: '1', position: latLng2);
 final marker2 = NMarker(id: '2', position: latLng3);//서울시청의 범위
 final List<NMarker> markers = [marker,marker1,marker2];
@@ -61,8 +93,14 @@ class _MyButtonState extends State<MyButton> {
         setState(() {
           isPressed = !isPressed;
           onChecked[widget.index] = true; // 생성자에서 받은 인덱스를 사용합니다.
-        mapController.addOverlay(markers[widget.index]);});
+        mapController.addOverlay(markers[widget.index]);
+          marker.setMinZoom(12);
+          marker.setMaxZoom(18);
+          marker.setIsMinZoomInclusive(true);
+          marker.setIsMaxZoomInclusive(false);
+        });
       },
+
     );
   }
 }
@@ -124,6 +162,7 @@ class MyMAP extends StatelessWidget {
         width: 0.7*deviceWidth,
           height: 0.7*deviceHeight,
           child: NaverMap(
+
         options:
         const NaverMapViewOptions(
           initialCameraPosition: NCameraPosition(
@@ -145,10 +184,7 @@ class MyMAP extends StatelessWidget {
         forceGesture: false, // 지도에 전달되는 제스처 이벤트의 우선순위를 가장 높게 설정할지 여부를 지정합니다.
         onMapReady: (controller) {
           mapController = controller;
-
-          marker.openInfoWindow(onMarkerInfoWindow);
-
-
+          final cameraPosition = controller.getCameraPosition();
 
 
 
