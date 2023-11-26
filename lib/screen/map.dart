@@ -197,7 +197,7 @@ class MyMAP extends StatelessWidget {
 
 
 
-              Future<void> _sendDataToBackend(String id, String password) async {
+              Future<void> _sendDataToBackend(double currentZoom, double currentlatitude, double currentlongitude) async {
                 final url = Uri.parse('http://BACKEND_IP:BACKEND_PORT'); // 여기에 백엔드의 URL을 입력해야 합니다.
 
                 final response = await http.post(
@@ -231,7 +231,8 @@ class MyMAP extends StatelessWidget {
                 }
               }
 
-
+              _sendDataToBackend(currentZoom, currentlatitude, currentlongitude);
+              fetchDataFromServer();
 
             },
 
