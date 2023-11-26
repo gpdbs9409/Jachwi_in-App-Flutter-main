@@ -6,11 +6,14 @@ import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:ja_chuiin/screen/1.log_in.dart';
 import 'dart:async';
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 
 const latLng1 = NLatLng(37.6318332, 127.0795142);
 const latLng2 =  NLatLng(37.6290734, 127.0826410);
 const latLng3 =  NLatLng(37.484147, 127.034631);
+double CurrentZoomLevel=0;
+double CurrentPosition=0;
+
 
 
 /// 카메라를 업데이트시킬 수 있어요
@@ -182,18 +185,63 @@ class MyMAP extends StatelessWidget {
         ),
         // 지도 옵션을 설정할 수 있습니다.
         forceGesture: false, // 지도에 전달되는 제스처 이벤트의 우선순위를 가장 높게 설정할지 여부를 지정합니다.
-        onMapReady: (controller) {
-          mapController = controller;
-          final cameraPosition = controller.getCameraPosition();
+            onMapReady: (controller) async {
+              mapController = controller;
+              var cameraPosition = await controller.getCameraPosition();
+
+              // 현재 카메라 위치의 정보를 변수에 저장합니다.
+              var currentTarget = cameraPosition.target;
+              var currentlatitude= currentTarget.latitude;
+              var currentlongitude = currentTarget.longitude;
+              var currentZoom = cameraPosition.zoom;
 
 
 
-        },
-        onMapTapped: (point, latLng) {},
+              Future<void> _sendDataToBackend(String id, String password) async {
+                final url = Uri.parse('http://BACKEND_IP:BACKEND_PORT'); // 여기에 백엔드의 URL을 입력해야 합니다.
+
+                final response = await http.post(
+                  url,
+                  headers: {'Content-Type': 'application/json'},
+                  body: json.encode({'currentZoom':currentZoom , 'currentlatitude': currentlatitude,'currentlongitude': currentlongitude}),
+                );
+
+                if (response.statusCode == 200) {
+                  print('Data sent successfully to the backend.');
+                  // 백엔드로 데이터가 성공적으로 보내졌을 경우 수행할 작업을 추가할 수 있습니다.
+                } else {
+                  print('Failed to send data to the backend.');
+                  // 백엔드로 데이터를 보내는 데 실패한 경우 수행할 작업을 추가할 수 있습니다.
+                }
+              }
+
+
+
+              Future<int> fetchDataFromServer() async {
+                final url = Uri.parse('http://example.com/data'); // 여기에 서버의 URL을 입력해야 합니다.
+
+                final response = await http.get(url);
+
+                if (response.statusCode == 200) {
+                  // 서버로부터 받은 데이터를 파싱하여 YourDataModel 객체로 변환합니다.
+                  return int.parse(json.decode(response.body));
+                } else {
+                  // 오류가 발생했을 경우, 예외를 발생시킵니다.
+                  throw Exception('Failed to load data from the server');
+                }
+              }
+
+
+
+            },
+
+            onMapTapped: (point, latLng) {},
         onSymbolTapped: (symbol) {},
         onCameraChange: (position, reason) {},
         onCameraIdle: () {},
         onSelectedIndoorChanged: (indoor) {},
+
+
       )
     ),]),
       );
