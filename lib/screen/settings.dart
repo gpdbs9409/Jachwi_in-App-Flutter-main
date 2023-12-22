@@ -10,5 +10,6 @@ class setting extends StatefulWidget {
 class _settingState extends State<setting> {
   @override
   Widget build(BuildContext context) {
-  return Text("세팅");
-  }}
+    return Text("세팅");
+  }
+}

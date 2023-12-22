@@ -1,19 +1,11 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:ja_chuiin/screen/0.splash screen.dart';
-import 'package:ja_chuiin/screen//map.dart';
 import 'package:ja_chuiin/screen//2.authorizon.dart';
 import 'package:ja_chuiin/screen//3.agreement.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
-
-import 'dart:async';
-import 'dart:convert';
-
-import 'package:ja_chuiin/screen/1.log_in.dart';// json할떄사용하는
 
 
+import 'package:ja_chuiin/screen/1.log_in.dart'; // json할떄사용하는
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,31 +19,26 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void initState() {
     super.initState();
-
   }
 
-
   Widget build(BuildContext context) {
-
-
     double deviceWidth = MediaQuery.of(context).size.width;
 
-
     return MaterialApp(
-      routes:{
-      '0' : (context) => SplashScreen(),
-      '1':(context)=>  LOGIN(),
-      '2':(context)=>authorization(),
-      '3':(context)=>Agreements()},
+      routes: {
+        '0': (context) => SplashScreen(),
+        '1': (context) => LOGIN(),
+        '2': (context) => authorization(),
+        '3': (context) => Agreements()
+      },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home:SplashScreen (),
+      home: SplashScreen(),
     );
   }
 }

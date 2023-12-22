@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class mypage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -9,5 +10,6 @@ class mypage extends StatefulWidget {
 class _mypageState extends State<mypage> {
   @override
   Widget build(BuildContext context) {
-  return Text('마이페이지');
-  }}
+    return Text('마이페이지');
+  }
+}

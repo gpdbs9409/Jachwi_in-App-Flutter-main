@@ -2,31 +2,28 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 
 
-
 class SizeConfig {
-  late MediaQueryData _mediaQueryData;
-  static double screenWidth = 0.0;
-  double screenHeight = 0.0;
-  double blockSizeHorizontal = 0.0;
-  late double blockSizeVertical;
-
-  late double _safeAreaHorizontal;
-  late double _safeAreaVertical;
+  static late double deviceWidth;
+  static late double deviceHeight;
+  static late double blockSizeHorizontal;
+  static late double blockSizeVertical;
+  static late double safeAreaHorizontal;
+  static late double safeAreaVertical;
   static late double safeBlockHorizontal;
-  late double safeBlockVertical;
+  static late double safeBlockVertical;
 
-  void init(BuildContext context) {
-    _mediaQueryData = MediaQuery.of(context);
-    screenWidth = _mediaQueryData.size.width;
-    screenHeight = _mediaQueryData.size.height;
-    blockSizeHorizontal = screenWidth / 100;
-    blockSizeVertical = screenHeight / 100;
+  static void init(BuildContext context) {
+    MediaQueryData _mediaQueryData = MediaQuery.of(context);
+    deviceWidth = _mediaQueryData.size.width;
+    deviceHeight = _mediaQueryData.size.height;
+    blockSizeHorizontal = deviceWidth / 100;
+    blockSizeVertical = deviceHeight / 100;
 
-    _safeAreaHorizontal =
-        _mediaQueryData.padding.left + _mediaQueryData.padding.right;
-    _safeAreaVertical =
-        _mediaQueryData.padding.top + _mediaQueryData.padding.bottom;
-    safeBlockHorizontal = (screenWidth - _safeAreaHorizontal) / 100;
-    safeBlockVertical = (screenHeight - _safeAreaVertical) / 100;
+    safeAreaHorizontal = _mediaQueryData.padding.left + _mediaQueryData.padding.right;
+    safeAreaVertical = _mediaQueryData.padding.top + _mediaQueryData.padding.bottom;
+    safeBlockHorizontal = (deviceWidth - safeAreaHorizontal) / 100;
+    safeBlockVertical = (deviceHeight - safeAreaVertical) / 100;
   }
 }
+
+
