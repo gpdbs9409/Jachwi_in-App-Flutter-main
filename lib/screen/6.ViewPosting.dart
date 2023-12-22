@@ -26,12 +26,12 @@ class _vieweachpostingsState extends State<vieweachpostings> {
 
             children: [
               Text(postings[0].title,
-
                 style: TextStyle(
                     fontSize: 20
                 ),),
               SizedBox(height: SizeConfig.deviceHeight* 0.01,),
               Text(postings[0].contents),
+
               Row(mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     IconButton(

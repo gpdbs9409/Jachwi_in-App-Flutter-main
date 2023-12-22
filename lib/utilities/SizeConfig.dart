@@ -13,14 +13,14 @@ class SizeConfig {
   static late double safeBlockVertical;
 
   static void init(BuildContext context) {
-    MediaQueryData _mediaQueryData = MediaQuery.of(context);
-    deviceWidth = _mediaQueryData.size.width;
-    deviceHeight = _mediaQueryData.size.height;
+    MediaQueryData mediaQueryData = MediaQuery.of(context);
+    deviceWidth = mediaQueryData.size.width;
+    deviceHeight = mediaQueryData.size.height;
     blockSizeHorizontal = deviceWidth / 100;
     blockSizeVertical = deviceHeight / 100;
 
-    safeAreaHorizontal = _mediaQueryData.padding.left + _mediaQueryData.padding.right;
-    safeAreaVertical = _mediaQueryData.padding.top + _mediaQueryData.padding.bottom;
+    safeAreaHorizontal = mediaQueryData.padding.left + mediaQueryData.padding.right;
+    safeAreaVertical = mediaQueryData.padding.top + mediaQueryData.padding.bottom;
     safeBlockHorizontal = (deviceWidth - safeAreaHorizontal) / 100;
     safeBlockVertical = (deviceHeight - safeAreaVertical) / 100;
   }

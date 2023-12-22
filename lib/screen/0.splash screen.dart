@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ja_chuiin/screen/1.log_in.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -12,12 +13,13 @@ class _MyWidgetState extends State<SplashScreen> {
     _navigateToLogin(); // initState에서 _navigateToLogin 함수 호출
   }
 
-  // 로그인 화면으로 이동하는 함수
   void _navigateToLogin() {
     Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushNamed(context, '1'); // 3초있다가 자동으로 로그인 화면으로 이동
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LOGIN()));
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
