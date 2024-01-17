@@ -21,8 +21,23 @@ Future<void> sendDataToBackend(String id, String password) async {
   }
 }
 
-Future<void> sendDataToBackendinfo(double currentZoom,
-    double currentlatitude, double currentlongitude) async {
+// Future<void> sendDataToBackendinfo(double currentZoom,
+//     double currentlatitude, double currentlongitude) async {
+//   final url = Uri.parse(
+//       'http://BACKEND_IP:BACKEND_PORT'); // 여기에 백엔드의 URL을 입력해야 합니다.
+//
+//   final response = await http.post(
+//     url,
+//     headers: {'Content-Type': 'application/json'},
+//     body: json.encode({
+//       'currentZoom': currentZoom,
+//       'currentlatitude': currentlatitude,
+//       'currentlongitude': currentlongitude
+//     }),
+//   );
+
+
+Future<void> sendDataToBackendinfo(double southLatitude,double westLongitude, double northLatitude, double eastLongitude) async {
   final url = Uri.parse(
       'http://BACKEND_IP:BACKEND_PORT'); // 여기에 백엔드의 URL을 입력해야 합니다.
 
@@ -30,11 +45,13 @@ Future<void> sendDataToBackendinfo(double currentZoom,
     url,
     headers: {'Content-Type': 'application/json'},
     body: json.encode({
-      'currentZoom': currentZoom,
-      'currentlatitude': currentlatitude,
-      'currentlongitude': currentlongitude
-    }),
+    'southLatitude': southLatitude,
+    'westLongitude':westLongitude,
+    'northLatitude': northLatitude,
+    'eastLongitude': eastLongitude}
+    ),
   );
+
 
   if (response.statusCode == 200) {
     print('Data sent successfully to the backend.');

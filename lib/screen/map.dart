@@ -6,6 +6,15 @@ import 'package:ja_chuiin/screen/1.log_in.dart';
 import 'package:ja_chuiin/utilities/Colors.dart';
 import 'package:ja_chuiin/utilities/SizeConfig.dart';
 
+Map<String, double> convertBoundsToDoubles(NLatLngBounds bounds) {
+  return {
+    'southLatitude': bounds.southLatitude,
+    'westLongitude': bounds.westLongitude,
+    'northLatitude': bounds.northLatitude,
+    'eastLongitude': bounds.eastLongitude,
+  };
+}
+
 class MyButton extends StatefulWidget {
   final String text;
   final int index;
@@ -75,27 +84,31 @@ class MyMAP extends StatelessWidget {
         toolbarHeight: SizeConfig.deviceHeight * 0.1,
         backgroundColor: myColor, // 앱바의 배경색을 myColor로 설정합니다.
       ),
-      body: Column(children: [
-        SizedBox(height: SizeConfig.deviceHeight),
-        Center(
-            child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            MyButton(text: '카페', index: 0),
-            SizedBox(width: 10),
-            MyButton(text: '버스', index: 1),
-            SizedBox(width: 10),
-            MyButton(text: '안전', index: 2),
-            SizedBox(width: 10),
-            MyButton(text: '학교', index: 3),
-            SizedBox(width: 10),
-          ],
-        )),
-        SizedBox(height: 20),
-        Container(
-            width: 0.7 * SizeConfig.deviceWidth,
-            height: 0.7 * SizeConfig.deviceHeight ,
-            child: NaverMap(
+      body: ListView(
+    children: [
+    SizedBox(height: 20), // 상단에 적당한 여백을 주었습니다.
+    Center(
+    child: Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+    MyButton(text: '카페', index: 0),
+    SizedBox(width: 10),
+    MyButton(text: '버스', index: 1),
+    SizedBox(width: 10),
+    MyButton(text: '안전', index: 2),
+    SizedBox(width: 10),
+    MyButton(text: '학교', index: 3),
+    SizedBox(width: 10),
+    ],
+    ),
+    ),
+    SizedBox(height: 20), // 버튼과 지도 사이에 적당한 여백을 주었습니다.
+    Container(
+    width: 0.7 * SizeConfig.deviceWidth,
+    // Container의 높이를 지정하지 않고, Flexible 또는 Expanded로 감쌉니다.
+    child: Flexible(
+    child: NaverMap(
+
               options: const NaverMapViewOptions(
                 initialCameraPosition: NCameraPosition(
                   target: NLatLng(37.6318332, 127.0795142),
@@ -115,14 +128,25 @@ class MyMAP extends StatelessWidget {
                 mapController = controller;
                 var cameraPosition = await controller.getCameraPosition();
 
-                // 현재 카메라 위치의 정보를 변수에 저장합니다.
-                var currentTarget = cameraPosition.target;
-                var currentlatitude = currentTarget.latitude;
-                var currentlongitude = currentTarget.longitude;
-                var currentZoom = cameraPosition.zoom;
+                // // 현재 카메라 위치의 정보를 변수에 저장합니다.
+                // var currentTarget = cameraPosition.target;
+                // var currentlatitude = currentTarget.latitude;
+                // var currentlongitude = currentTarget.longitude;
+                // var currentZoom = cameraPosition.zoom;
+                //
+                // sendDataToBackendinfo(
+                //     currentZoom, currentlatitude, currentlongitude);
+                // fetchDataFromServer();
 
+
+                var contentBounds = await controller.getContentBounds(withPadding: true);
+                var boundsDoubles = convertBoundsToDoubles(contentBounds);
                 sendDataToBackendinfo(
-                    currentZoom, currentlatitude, currentlongitude);
+                    boundsDoubles['southLatitude']!,
+                    boundsDoubles['westLongitude']!,
+                    boundsDoubles['northLatitude']!,
+                    boundsDoubles['eastLongitude']!
+                );
                 fetchDataFromServer();
               },
 
@@ -132,7 +156,7 @@ class MyMAP extends StatelessWidget {
               onCameraIdle: () {},
               onSelectedIndoorChanged: (indoor) {},
             )),
-      ]),
+    ) ]),
     );
   }
 }

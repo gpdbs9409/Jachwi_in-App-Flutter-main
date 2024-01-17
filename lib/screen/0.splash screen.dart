@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ja_chuiin/screen/1.log_in.dart';
+import 'package:ja_chuiin/screen/map.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class _MyWidgetState extends State<SplashScreen> {
 
   void _navigateToLogin() {
     Future.delayed(Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LOGIN()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MyMAP()));
     });
   }
 
