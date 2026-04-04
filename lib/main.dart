@@ -1,35 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
-import 'package:ja_chuiin/screen/0.splash screen.dart';
-import 'package:ja_chuiin/utilities/SizeConfig.dart'; // json할떄사용하는
+import 'package:get/get.dart';
+import 'package:ja_chuiin/presentation/screens/splash/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NaverMapSdk.instance.initialize(clientId: "g4v4m4nte0");
-  runApp(MyApp());
+  runApp(const JaChwuiinApp());
 }
 
-class MyApp extends StatefulWidget {
+class JaChwuiinApp extends StatelessWidget {
+  const JaChwuiinApp({super.key});
+
   @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      SizeConfig.init(context);
-  });}
-
   Widget build(BuildContext context) {
-
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-      ),
+      title: '자취인',
+      theme: ThemeData(primarySwatch: Colors.deepPurple),
       home: SplashScreen(),
     );
   }
