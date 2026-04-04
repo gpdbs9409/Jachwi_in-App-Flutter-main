@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:ja_chuiin/data/models/map_bounds.dart';
 
 class MapRepository {
-  static const String _baseUrl = 'http://BACKEND_IP:BACKEND_PORT';
+  static const String _baseUrl = 'http://localhost:8080';
 
   Future<void> sendMapBounds(MapBounds bounds) async {
     final response = await http.post(

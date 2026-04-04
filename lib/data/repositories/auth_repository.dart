@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class AuthRepository {
-  static const String _baseUrl = 'http://BACKEND_IP:BACKEND_PORT';
+  static const String _baseUrl = 'http://localhost:8081';
 
   Future<void> login(String id, String password) async {
     final response = await http.post(
