@@ -5,27 +5,24 @@ import 'package:ja_chuiin/data/models/map_bounds.dart';
 class MapRepository {
   static const String _baseUrl = 'http://localhost:8080';
 
-  Future<void> sendMapBounds(MapBounds bounds) async {
-    final response = await http.post(
-      Uri.parse('$_baseUrl/map/bounds'),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode(bounds.toJson()),
+  // GET /api/v1/map/view/position?minX=&maxX=&minY=&maxY=
+  // MapBounds: southLatitude=minY, northLatitude=maxY, westLongitude=minX, eastLongitude=maxX
+  Future<List<dynamic>> fetchBuildingsInArea(MapBounds bounds) async {
+    final uri = Uri.parse('$_baseUrl/api/v1/map/view/position').replace(
+      queryParameters: {
+        'minX': bounds.westLongitude.toString(),
+        'maxX': bounds.eastLongitude.toString(),
+        'minY': bounds.southLatitude.toString(),
+        'maxY': bounds.northLatitude.toString(),
+      },
     );
 
-    if (response.statusCode != 200) {
-      throw Exception('지도 범위 전송 실패: ${response.statusCode}');
-    }
-  }
-
-  Future<int> fetchMarkerCount() async {
-    final response = await http.get(
-      Uri.parse('$_baseUrl/map/markers'),
-    );
+    final response = await http.get(uri);
 
     if (response.statusCode == 200) {
-      return int.parse(json.decode(response.body));
+      return json.decode(response.body) as List<dynamic>;
     } else {
-      throw Exception('마커 데이터 조회 실패: ${response.statusCode}');
+      throw Exception('건물 데이터 조회 실패: ${response.statusCode}');
     }
   }
 }
