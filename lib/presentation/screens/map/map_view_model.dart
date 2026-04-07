@@ -1,4 +1,4 @@
-import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:ja_chuiin/utils/naver_map.dart';
 import 'package:get/get.dart';
 import 'package:ja_chuiin/data/models/map_bounds.dart';
 import 'package:ja_chuiin/data/repositories/map_repository.dart';
@@ -34,12 +34,11 @@ class MapViewModel extends GetxController {
   Future<void> onMapReady(NaverMapController controller) async {
     mapController = controller;
     final contentBounds = await controller.getContentBounds(withPadding: true);
-    await _sendBoundsToServer(contentBounds);
-    await _repository.fetchMarkerCount();
+    await _fetchBuildings(contentBounds);
   }
 
-  Future<void> _sendBoundsToServer(NLatLngBounds bounds) async {
-    await _repository.sendMapBounds(MapBounds(
+  Future<void> _fetchBuildings(NLatLngBounds bounds) async {
+    await _repository.fetchBuildingsInArea(MapBounds(
       southLatitude: bounds.southLatitude,
       westLongitude: bounds.westLongitude,
       northLatitude: bounds.northLatitude,

@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:ja_chuiin/data/models/posting.dart';
 
 class PostRepository {
-  static const String _baseUrl = 'http://localhost:8080/api/v1/posts';
+  static const String _baseUrl = 'http://3.36.110.85:8080/api/v1/posts';
 
   // 게시글 목록 — GET /api/v1/posts?category=&page=&size=
   Future<List<Posting>> fetchPosts({String? category, int page = 0, int size = 20}) async {

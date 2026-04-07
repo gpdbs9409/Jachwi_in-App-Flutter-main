@@ -76,15 +76,14 @@ class HomeScreen extends StatelessWidget {
                           itemCount: dummyPostings.length,
                           itemBuilder: (context, index) {
                             return ListTile(
-                              leading: CircleAvatar(
+                              leading: const CircleAvatar(
                                 radius: 10,
-                                backgroundImage:
-                                    dummyPostings[index].image.image,
+                                child: Icon(Icons.person, size: 12),
                               ),
                               title: Text(dummyPostings[index].title),
                               subtitle: Text(dummyPostings[index]
-                                  .contents
-                                  .substring(0, 10)),
+                                  .content
+                                  .substring(0, dummyPostings[index].content.length.clamp(0, 20))),
                               onTap: () =>
                                   Get.to(() => PostingDetailScreen()),
                             );

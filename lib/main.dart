@@ -1,11 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
 import 'package:ja_chuiin/presentation/screens/splash/splash_screen.dart';
+import 'package:ja_chuiin/utils/naver_map.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await NaverMapSdk.instance.initialize(clientId: "g4v4m4nte0");
+  if (!kIsWeb) {
+    await NaverMapSdk.instance.initialize(clientId: "g4v4m4nte0");
+  }
   runApp(const JaChwuiinApp());
 }
 

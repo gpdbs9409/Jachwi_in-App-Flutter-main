@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class AuthRepository {
-  static const String _baseUrl = 'http://localhost:8081';
+  static const String _baseUrl = 'http://3.36.110.85:8081';
 
   // POST /auth/login — {email, password} → {accessToken, refreshToken}
   Future<Map<String, dynamic>> login(String email, String password) async {

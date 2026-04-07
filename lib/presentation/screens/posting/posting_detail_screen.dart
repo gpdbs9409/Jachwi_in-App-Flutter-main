@@ -28,7 +28,7 @@ class _PostingDetailScreenState extends State<PostingDetailScreen> {
               style: const TextStyle(fontSize: 20),
             ),
             SizedBox(height: SizeConfig.deviceHeight * 0.01),
-            Text(dummyPostings[0].contents),
+            Text(dummyPostings[0].content),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

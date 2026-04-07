@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ja_chuiin/presentation/screens/chat/chat_screen.dart';
 import 'package:ja_chuiin/presentation/screens/map/map_screen.dart';
 
 class BottomNavBar extends StatelessWidget {
@@ -22,15 +24,16 @@ class BottomNavBar extends StatelessWidget {
             onTap: () {},
           ),
           _NavItem(
-            icon: Icons.people_outline,
-            label: '룸메이트',
-            onTap: () {},
+            icon: Icons.smart_toy_outlined,
+            label: 'AI추천',
+            onTap: () => Get.to(() => ChatScreen()),
           ),
-          _NavItem(
-            icon: Icons.location_on_outlined,
-            label: '지도',
-            onTap: () => Get.to(() => MapScreen()),
-          ),
+          if (!kIsWeb)
+            _NavItem(
+              icon: Icons.location_on_outlined,
+              label: '지도',
+              onTap: () => Get.to(() => MapScreen()),
+            ),
           _NavItem(
             icon: Icons.person_outline,
             label: '마이',

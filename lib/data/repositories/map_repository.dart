@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:ja_chuiin/data/models/map_bounds.dart';
 
 class MapRepository {
-  static const String _baseUrl = 'http://localhost:8080';
+  static const String _baseUrl = 'http://3.36.110.85:8080';
 
   // GET /api/v1/map/view/position?minX=&maxX=&minY=&maxY=
   // MapBounds: southLatitude=minY, northLatitude=maxY, westLongitude=minX, eastLongitude=maxX

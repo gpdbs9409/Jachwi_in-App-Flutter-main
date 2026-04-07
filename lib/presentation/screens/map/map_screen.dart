@@ -1,5 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:ja_chuiin/utils/naver_map.dart';
 import 'package:get/get.dart';
 import 'package:ja_chuiin/core/constants/app_colors.dart';
 import 'package:ja_chuiin/core/constants/size_config.dart';
@@ -48,22 +49,24 @@ class MapScreen extends StatelessWidget {
           SizedBox(
             width: 0.7 * SizeConfig.deviceWidth,
             height: 0.65 * SizeConfig.deviceHeight,
-            child: NaverMap(
-              options: NaverMapViewOptions(
-                initialCameraPosition: _viewModel.initialPosition,
-                rotationGesturesEnable: true,
-                scrollGesturesEnable: true,
-                tiltGesturesEnable: true,
-                zoomGesturesEnable: true,
-                stopGesturesEnable: true,
-              ),
-              onMapReady: _viewModel.onMapReady,
-              onMapTapped: (point, latLng) {},
-              onSymbolTapped: (symbol) {},
-              onCameraChange: (position, reason) {},
-              onCameraIdle: () {},
-              onSelectedIndoorChanged: (indoor) {},
-            ),
+            child: kIsWeb
+                ? const Center(child: Text('지도는 모바일 앱에서 지원됩니다'))
+                : NaverMap(
+                    options: NaverMapViewOptions(
+                      initialCameraPosition: _viewModel.initialPosition,
+                      rotationGesturesEnable: true,
+                      scrollGesturesEnable: true,
+                      tiltGesturesEnable: true,
+                      zoomGesturesEnable: true,
+                      stopGesturesEnable: true,
+                    ),
+                    onMapReady: _viewModel.onMapReady,
+                    onMapTapped: (point, latLng) {},
+                    onSymbolTapped: (symbol) {},
+                    onCameraChange: (position, reason) {},
+                    onCameraIdle: () {},
+                    onSelectedIndoorChanged: (indoor) {},
+                  ),
           ),
         ],
       ),
